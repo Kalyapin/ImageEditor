@@ -1,13 +1,36 @@
+from PyQt6.QtGui import QPixmap
 from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QHBoxLayout, QVBoxLayout, QListWidget, QTextEdit, \
-    QLineEdit, QLabel, QMessageBox
+    QLineEdit, QLabel, QMessageBox, QFileDialog
 import os
 import json
+from PIL import Image
 
+
+class ImageProcessor():
+    def __init__(self):
+        self.image = None
+        self.filename = None
+        self.pixmap = None
+        self.image_path = None
+
+    def load_image(self, filename):
+        self.filename = filename
+        self.image_path = os.path.join(workdir, filename)
+        self.image = Image.open(self.image_path)
+        self.pixmap = QPixmap(self.image_path)
+
+    def show_image(self):
+        pictures_label.hide()
+        pictures_label.setPixmap(self.pixmap)
+        pictures_label.show()
+
+dirigeur = ImageProcessor()
+workdir = ''
 app = QApplication([])
 main_window = QWidget()
 main_window.setFixedSize(800, 600)
 main_window.setWindowTitle('Image Editor')
-pictures_label =  QLabel('Тут будет картинка')
+pictures_label = QLabel('Тут будет картинка')
 pictures_list = QListWidget()
 open_folder_button = QPushButton('Папка')
 rotate_left_button = QPushButton('Лево')
@@ -34,8 +57,39 @@ sub_sub_layout1.addWidget(contr_button)
 sub_sub_layout1.addWidget(light_dark_button)
 
 
+def select_workdir():
+    global workdir
+    workdir = QFileDialog.getExistingDirectory()
 
 
+def filter(files, extensions):
+    result = []
+    for filename in files:
+        for extension in extensions:
+            if filename.endswith(extension):
+                result.append(filename)
+    return result
+
+
+def open_folder():
+    select_workdir()
+    files = os.listdir(workdir)
+    extensions = ['.jpg', '.png', '.jpeg', '.gif']
+    files = filter(files, extensions)
+    pictures_list.clear()
+    pictures_list.addItems(files)
+
+
+
+
+
+def load_pic():
+    name = pictures_list.selectedItems()[0].text()
+    dirigeur.load_image(name)
+    dirigeur.show_image()
+
+pictures_list.itemClicked.connect(load_pic)
+open_folder_button.clicked.connect(open_folder)
 
 main_window.show()
 app.exec()
