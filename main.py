@@ -70,6 +70,10 @@ class ImageProcessor():
         self.image = self.image.filter(ImageFilter.SMOOTH)
         self.reload_pixmap()
 
+    def save_image(self):
+        path, _ = QFileDialog.getSaveFileName(main_window, 'SaveFileName', '', 'Image Files (*.png *.jpg *.jpeg *.bmp)')
+        self.image.save(path)
+
 dirigeur = ImageProcessor()
 workdir = ''
 app = QApplication([])
@@ -88,6 +92,8 @@ max_blur_button = QPushButton('Макс. размытие')
 sharpness_button = QPushButton('Резкость')
 light_dark_button = QPushButton('Ч/Б')
 effect_button = QPushButton('Анти-резкость')
+save_image_button = QPushButton('Сохранить')
+save_image_button.setStyleSheet('QPushButton {background-color: green; color: white;}')
 main_layout = QHBoxLayout()
 sub_layout1 = QVBoxLayout()
 sub_layout2 = QVBoxLayout()
@@ -111,6 +117,7 @@ sub_sub_layout2.addWidget(blur_button)
 sub_sub_layout2.addWidget(max_blur_button)
 sub_sub_layout2.addWidget(sharpness_button)
 sub_sub_layout2.addWidget(effect_button)
+sub_sub_layout2.addWidget(save_image_button)
 
 
 def select_workdir():
@@ -142,6 +149,8 @@ def load_pic():
 
 
 
+
+
 pictures_list.itemClicked.connect(load_pic)
 open_folder_button.clicked.connect(open_folder)
 light_dark_button.clicked.connect(dirigeur.greyscale)
@@ -153,6 +162,7 @@ blur_button.clicked.connect(dirigeur.blur)
 max_blur_button.clicked.connect(dirigeur.max_blur)
 sharpness_button.clicked.connect(dirigeur.sharpness)
 effect_button.clicked.connect(dirigeur.smooth)
+save_image_button.clicked.connect(dirigeur.save_image)
 
 
 
