@@ -58,6 +58,17 @@ class ImageProcessor():
         self.image = self.image.filter(ImageFilter.BLUR)
         self.reload_pixmap()
 
+    def max_blur(self):
+        self.image = self.image.filter(ImageFilter.MaxFilter)
+        self.reload_pixmap()
+
+    def sharpness(self):
+        self.image = self.image.filter(ImageFilter.EDGE_ENHANCE)
+        self.reload_pixmap()
+
+    def smooth(self):
+        self.image = self.image.filter(ImageFilter.SMOOTH)
+        self.reload_pixmap()
 
 dirigeur = ImageProcessor()
 workdir = ''
@@ -71,9 +82,12 @@ open_folder_button = QPushButton('Папка')
 rotate_left_button = QPushButton('Лево')
 rotate_right_button = QPushButton('Право')
 mirror_button = QPushButton('Зеркало')
-contr_button = QPushButton('Резкость')
+contr_button = QPushButton('Осветвление')
 blur_button = QPushButton('Блюр')
+max_blur_button = QPushButton('Макс. размытие')
+sharpness_button = QPushButton('Резкость')
 light_dark_button = QPushButton('Ч/Б')
+effect_button = QPushButton('Анти-резкость')
 main_layout = QHBoxLayout()
 sub_layout1 = QVBoxLayout()
 sub_layout2 = QVBoxLayout()
@@ -94,6 +108,9 @@ sub_sub_layout1.addWidget(mirror_button)
 sub_sub_layout1.addWidget(contr_button)
 sub_sub_layout1.addWidget(light_dark_button)
 sub_sub_layout2.addWidget(blur_button)
+sub_sub_layout2.addWidget(max_blur_button)
+sub_sub_layout2.addWidget(sharpness_button)
+sub_sub_layout2.addWidget(effect_button)
 
 
 def select_workdir():
@@ -133,6 +150,10 @@ rotate_right_button.clicked.connect(dirigeur.rotate_right)
 mirror_button.clicked.connect(dirigeur.mirror)
 contr_button.clicked.connect(dirigeur.contr)
 blur_button.clicked.connect(dirigeur.blur)
+max_blur_button.clicked.connect(dirigeur.max_blur)
+sharpness_button.clicked.connect(dirigeur.sharpness)
+effect_button.clicked.connect(dirigeur.smooth)
+
 
 
 main_window.show()
