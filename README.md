@@ -34,19 +34,15 @@ ImageEditor is an application for changing and saving images
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 11
+* Windows 
 * Python
+* PIL
+* PyQt6
 
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
 * 
-```
-code blocks for commands
-```
 
 
 ## Version History
