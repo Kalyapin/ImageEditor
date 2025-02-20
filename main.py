@@ -132,6 +132,12 @@ class ImageProcessor():
             popup.exec()
             return
         path, _ = QFileDialog.getSaveFileName(main_window, 'SaveFileName', '', 'Image Files (*.png *.jpg *.jpeg *.bmp)')
+        if path == '':
+            popup = QMessageBox()
+            popup.setWindowTitle('Error')
+            popup.setText('Path was not selected')
+            popup.exec()
+            return
         self.image.save(path)
 
 dirigeur = ImageProcessor()
@@ -185,6 +191,7 @@ def select_workdir():
     workdir = QFileDialog.getExistingDirectory()
 
 
+
 def filter(files, extensions):
     result = []
     for filename in files:
@@ -196,6 +203,12 @@ def filter(files, extensions):
 
 def open_folder():
     select_workdir()
+    if workdir == '':
+        popup = QMessageBox()
+        popup.setWindowTitle('Error')
+        popup.setText('Folder was not selected')
+        popup.exec()
+        return
     files = os.listdir(workdir)
     extensions = ['.jpg', '.png', '.jpeg', '.gif']
     files = filter(files, extensions)
