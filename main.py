@@ -34,43 +34,103 @@ class ImageProcessor():
         self.reload_pixmap()
 
     def greyscale(self):
+        if self.image == None:
+            popup = QMessageBox()
+            popup.setWindowTitle('Error')
+            popup.setText('Image is not selected')
+            popup.exec()
+            return
         self.image = self.image.convert('L')
         self.reload_pixmap()
 
     def rotate_left(self):
+        if self.image == None:
+            popup = QMessageBox()
+            popup.setWindowTitle('Error')
+            popup.setText('Image is not selected')
+            popup.exec()
+            return
         self.image = self.image.transpose(Image.ROTATE_90)
         self.reload_pixmap()
 
     def rotate_right(self):
+        if self.image == None:
+            popup = QMessageBox()
+            popup.setWindowTitle('Error')
+            popup.setText('Image is not selected')
+            popup.exec()
+            return
         self.image = self.image.transpose(Image.ROTATE_270)
         self.reload_pixmap()
 
     def mirror(self):
+        if self.image == None:
+            popup = QMessageBox()
+            popup.setWindowTitle('Error')
+            popup.setText('Image is not selected')
+            popup.exec()
+            return
         self.image = self.image.transpose(Image.FLIP_LEFT_RIGHT)
         self.reload_pixmap()
 
     def contr(self):
+        if self.image == None:
+            popup = QMessageBox()
+            popup.setWindowTitle('Error')
+            popup.setText('Image is not selected')
+            popup.exec()
+            return
         self.image = ImageEnhance.Contrast(self.image)
         self.image = self.image.enhance(1.5)
         self.reload_pixmap()
 
     def blur(self):
+        if self.image == None:
+            popup = QMessageBox()
+            popup.setWindowTitle('Error')
+            popup.setText('Image is not selected')
+            popup.exec()
+            return
         self.image = self.image.filter(ImageFilter.BLUR)
         self.reload_pixmap()
 
     def max_blur(self):
+        if self.image == None:
+            popup = QMessageBox()
+            popup.setWindowTitle('Error')
+            popup.setText('Image is not selected')
+            popup.exec()
+            return
         self.image = self.image.filter(ImageFilter.MaxFilter)
         self.reload_pixmap()
 
     def sharpness(self):
+        if self.image == None:
+            popup = QMessageBox()
+            popup.setWindowTitle('Error')
+            popup.setText('Image is not selected')
+            popup.exec()
+            return
         self.image = self.image.filter(ImageFilter.EDGE_ENHANCE)
         self.reload_pixmap()
 
     def smooth(self):
+        if self.image == None:
+            popup = QMessageBox()
+            popup.setWindowTitle('Error')
+            popup.setText('Image is not selected')
+            popup.exec()
+            return
         self.image = self.image.filter(ImageFilter.SMOOTH)
         self.reload_pixmap()
 
     def save_image(self):
+        if self.image == None:
+            popup = QMessageBox()
+            popup.setWindowTitle('Error')
+            popup.setText('Image is not selected')
+            popup.exec()
+            return
         path, _ = QFileDialog.getSaveFileName(main_window, 'SaveFileName', '', 'Image Files (*.png *.jpg *.jpeg *.bmp)')
         self.image.save(path)
 
@@ -146,7 +206,6 @@ def open_folder():
 def load_pic():
     name = pictures_list.selectedItems()[0].text()
     dirigeur.load_image(name)
-
 
 
 
